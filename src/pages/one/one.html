@@ -7,7 +7,7 @@
   </ion-header>
   <ion-content>
     <ion-list *ngIf="pageTree">
-      <button ion-item (click)="slot.insert(i, page.component, page.params)" *ngFor="let page of pageTree.children; let i = index;">
+      <button ion-item [navPush]="page.component" [navParams]="page.params" *ngFor="let page of pageTree.children; let i = index;">
         {{page.params.title}}
       </button>
     </ion-list>

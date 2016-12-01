@@ -57,12 +57,12 @@ export class PagerComponent {
   next() {
     let next = this.activeIndex + 1;
     if (this.activeIndex >= 0 && next < this.count && this.menu[next]) {
-      const pages = [];
+      const page = this.menu[next];
       this.menu[this.activeIndex].isEnabled = false;
-      for (var i = 0, l = next; i < l; i++) {
-        this.viewChild.insert(i, this.menu[i].component, this.menu[i].params);
-      }
-      this.menu[next].isEnabled = true;
+
+      this.viewChild.push(page.component, page.params).then(() => {
+        page.isEnabled = true;
+      });
     }
   }
 
@@ -70,9 +70,11 @@ export class PagerComponent {
     let next = this.activeIndex - 1;
     if (this.activeIndex >= 0 && next >= 0 && this.menu[next]) {
       const pages = [];
-      for (var i = 0, l = next; i < l; i++) {
-        pages.push(this.menu[i]);
+      this.menu[this.activeIndex].isEnabled = false;
+      for (var i = 0, l = next; i <= l; i++) {
+        this.viewChild.insert(i, this.menu[i].component, this.menu[i].params);
       }
+      this.menu[next].isEnabled = true;
     }
   }
 }
