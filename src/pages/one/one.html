@@ -1,0 +1,16 @@
+<pager *ngIf="pageTree" [menuInput]="pageTree.children" [viewChildInput]="oneRoot"></pager>
+<ion-menu [content]="oneRoot">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Pages</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list *ngIf="pageTree">
+      <button ion-item (click)="slot.insert(i, page.component, page.params)" *ngFor="let page of pageTree.children; let i = index;">
+        {{page.params.title}}
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+<ion-nav #oneRoot></ion-nav>
